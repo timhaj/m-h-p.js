@@ -1,6 +1,4 @@
-
 function parse(text) {
-
     let tokens = tokenizeMarkdown(text);
     for(let i = 0;i<tokens.length;i++){
         let token = tokens[i];
@@ -58,87 +56,8 @@ function parse(text) {
         } 
     }
     text = tokens.join('');
+    text = additionalCheck(text);
     return text;
-
-    //const tableToHtml = (text) => {
-    //    const tableRegex = /\|(.+?)\|\n\|(?:[-| ]+)\|\n((?:\|.+?\|\n)+)/gm;
-    //    return text.replace(tableRegex, (_, headers, rows) => {
-    //        const headerHtml = headers.trim().split('|').map(h => `<th>${h.trim()}</th>`).join('');
-    //        const thead = `<thead><tr>${headerHtml}</tr></thead>`;
-    //        const rowsHtml = rows.trim().split('\n').map(row => {
-    //            row = row.trim().split('|');
-    //            row.shift();
-    //            row.pop();
-    //            const cols = row.map(col => `<td>${col.trim()}</td>`).join('');
-    //            return `<tr>${cols}</tr>`;
-    //        }).join('');
-    //        const tbody = `<tbody>${rowsHtml}</tbody>`;
-    //        return `<table>${thead}${tbody}</table>`;
-    //    });
-    //};
-    //x = tableToHtml(text);
-
-    //link pt.2
-    //re = /(http[s]?\:\/{2}[^\s]*)/gm; //ce slucajno ne damo v []() //ta tokenizacijo potem
-    //x = x.replace(re, '<a href="$1">$1</a>')
-
-    //ordered list
-    //const ordered = x.replace(/(?:^|\n)([0-9]+[.] .+(?:\n[0-9]+[.] .+)*)/gm, (match) => {
-    //    const listItems = match.trim().split('\n').map(item => {
-    //        return item.replace(/^[0-9]+[.] /, '\n<li>') + '</li>';
-    //    }).join('');
-    //    return `\n<ol>${listItems}\n</ol>`;
-    //});
-    //x = ordered;
-
-
-    //unordered list
-    //const unordered = x.replace(/(?:^|\n)([-+*] .+(?:\n[-+*] .+)*)/gm, (match) => {
-    //    const listItems = match.trim().split('\n').map(item => {
-    //        return item.replace(/^[-+*] /, '\n<li>') + '</li>';
-    //    }).join('');
-    //    return `\n<ul>${listItems}\n</ul>`;
-    //});
-    //x = unordered;
-
-
-    //heading
-    //const htmlText = x.replace(/^(#{1,6})\s(.*)/gm, (match, hashes, headingText) => {
-    //    const headingLevel = hashes.length;
-    //    return `<h${headingLevel}>${headingText}</h${headingLevel}>`;
-    //});
-    //x = htmlText;
-
-    //code block
-    //re = /```([a-z]*)\n([\s\S]*?)```/gm;
-    //const code = text.replace(/```([a-z]*)\n([\s\S]*?)```/gm,(match, language, code) => {
-    //    return `\n<pre class="${language}">\n<code>\n${code}\n</code>\n</pre>`;
-    //});
-    //x = code;
-
-    //img
-/*     re = /\!\[(.*)\]\((.*)\)/gm;
-    x = x.replace(re, '<img src="$2" alt="$1" />'); */
-
-    //blockquote
-/*     re = /\>\s(.*)/gm;
-    x = x.replace(re, '<blockquote>$1</blockquote>'); */
-
-    //bold
-    //re = /\*\*(.*?)\*\*/gm;
-    //x = x.replace(re, '<strong>$1</strong>');
-
-    //italic
-    //re = /\*(.*?)\*/gm;
-    //x = x.replace(re, '<em>$1</em>');
-
-    //horizontal rule
-    //re = /(\*{3}|\-{3}|\_{3})/gm;
-    //x = x.replace(re, '<hr>');
-
-    //link
-    //re = /\[(.*)\]\((.*)\)/gm;
-    //x = x.replace(re, '<a href="$2">$1</a>')
 }
 
 function tokenizeMarkdown(text) {
@@ -147,6 +66,12 @@ function tokenizeMarkdown(text) {
     return tokens;
 }
 
+function additionalCheck(text){
+    text = text.replace(/\*\*(.*?)\*\*/gm, '<strong>$1</strong>');
+    text = text.replace(/\*(.*?)\*/gm, '<em>$1</em>');
+    text = text.replace(/`(.*?)`/gm,'<code>$1</code>');
+    return text;
+}
 
 function md2HTML() {
     let nodes = document.getElementsByClassName('mh_parse');
