@@ -74,8 +74,12 @@ function additionalCheck(text){
 }
 
 function md2HTML() {
-    let nodes = document.getElementsByClassName('mh_parse');
+    let nodes = document.getElementsByClassName('md2HTML');
     for (let i = 0; i < nodes.length; i++) {
         nodes[i].innerHTML = parse(nodes[i].textContent);
     }
+}
+
+function md2HTMLParseElementText(text){
+    return parse(text);
 }
