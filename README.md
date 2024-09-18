@@ -7,6 +7,7 @@ A lightweight markdown to HTML parser (5 kB standrad, 3 kB .min version).
 - You can use it in two ways:
   - Static: by just calling `md2HTML()`, the parser will select all div's with `md2HTML` class, and apply the parsing inside its text content.
   - Dynamic: by calling `div.innerHTML = md2HTMLParseElementText(div.textContent)`, the parser will parse the text inside the div text contents you passed as a argument. 
+- See `demo.html` for a example how the parser works.
 
 ## Supports the following markdown elements:
 - Headings
@@ -43,6 +44,3 @@ A lightweight markdown to HTML parser (5 kB standrad, 3 kB .min version).
 
 ## Contributions, issues,...
 - Found any issues or want to add other complex/extended markdown syntax? Simply open a issue/PR!
-
-## TODO:
-- demo
